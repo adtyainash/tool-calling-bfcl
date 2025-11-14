@@ -17,6 +17,13 @@ from bfcl_eval.model_handler.utils import (
 )
 from openai import OpenAI, RateLimitError
 
+import httpx
+
+class NoAuthTransport(httpx.Auth):
+    def auth_flow(self, request):
+        # Remove Authorization header if present
+        request.headers.pop("authorization", None)
+        yield request
 
 class OpenAICompletionsHandler(BaseHandler):
     def __init__(
@@ -29,7 +36,7 @@ class OpenAICompletionsHandler(BaseHandler):
     ) -> None:
         super().__init__(model_name, temperature, registry_name, is_fc_model, **kwargs)
         self.model_style = ModelStyle.OPENAI_COMPLETIONS
-        self.client = OpenAI(**self._build_client_kwargs())
+        self.client = OpenAI(**self._build_client_kwargs(), http_client=httpx.Client(auth=NoAuthTransport()))
 
     def _build_client_kwargs(self):
         """Collect OpenAI client keyword arguments from environment variables, but only

@@ -42,7 +42,7 @@ class OSSHandler(BaseHandler, EnforceOverrides):
         self.local_server_endpoint = os.getenv("LOCAL_SERVER_ENDPOINT", "localhost")
         self.local_server_port = os.getenv("LOCAL_SERVER_PORT", LOCAL_SERVER_PORT)
 
-        self.base_url = f"http://{self.local_server_endpoint}:{self.local_server_port}/v1"
+        self.base_url = f"{self.local_server_endpoint}"
         self.client = OpenAI(base_url=self.base_url, api_key="EMPTY")
 
     @override

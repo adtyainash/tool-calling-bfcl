@@ -112,6 +112,18 @@ class ModelConfig:
 
 # Inference through API calls
 api_inference_model_map = {
+    "goto": ModelConfig(
+        model_name="GoToCompany/gemma3-27b-sahabat-instruct",
+        display_name="Sahabat AI",
+        url="https://gorilla.cs.berkeley.edu/blogs/7_open_functions_v2.html",
+        org="Gorilla LLM",
+        license="Apache 2.0",
+        model_handler=OpenAICompletionsHandler,
+        input_price=None,
+        output_price=None,
+        is_fc_model=False,
+        underscore_to_dot=False,
+    ),
     "gorilla-openfunctions-v2": ModelConfig(
         model_name="gorilla-openfunctions-v2",
         display_name="Gorilla-OpenFunctions-v2 (FC)",
@@ -1182,6 +1194,18 @@ local_inference_model_map = {
         input_price=None,
         output_price=None,
         is_fc_model=False,
+        underscore_to_dot=False,
+    ),
+    "goto-llama": ModelConfig(
+        model_name="goToCompany/Llama-Sahabat-AI-v2-70B-R",
+        display_name="Llama-3.1-8B-Instruct (FC)",
+        url="https://llama.meta.com/llama3",
+        org="Meta",
+        license="Meta Llama 3 Community",
+        model_handler=LlamaHandler_3_1,
+        input_price=None,
+        output_price=None,
+        is_fc_model=True,
         underscore_to_dot=False,
     ),
     "meta-llama/Llama-3.1-8B-Instruct-FC": ModelConfig(
