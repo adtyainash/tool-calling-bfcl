@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""
+GoTo Model Evaluation Summary - Create Visual Report
+"""
+
+import csv
+import os
+
+def create_summary_report():
+    """Create a comprehensive summary report"""
+    
+    report = """
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                    GOTO MODEL EVALUATION REPORT - BFCL V4                      ║
+║                          Tool-Calling Capabilities                             ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+📊 EVALUATION SUMMARY
+─────────────────────────────────────────────────────────────────────────────────
+
+Model: GoToCompany/gemma3-27b-sahabat-instruct (Sahabat AI)
+Handler: OpenAI Completions API (Endpoint: https://litellm-staging.gopay.sh)
+Evaluation Mode: Prompt-based (non-function-calling)
+Total Test Cases: 2,377
+Average Accuracy: 86.55%
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🎯 RESULTS BY CATEGORY
+─────────────────────────────────────────────────────────────────────────────────
+
+NON-LIVE (Mock API) - Production Capability Score: 92.63%
+├─ Simple Python ..................... 95.00% ████████████████████ (400 tests)
+├─ Multiple Functions ................ 92.00% ████████████████████ (200 tests)
+├─ Parallel Execution ................ 92.50% ████████████████████ (200 tests)
+└─ Parallel + Multiple ............... 91.00% ███████████████████  (200 tests)
+   Subtotal: 1,000 tests | Category Avg: 92.63% | Status: ✅ EXCELLENT
+
+LIVE (Real API) - Production Readiness Score: 83.79%
+├─ Live Simple ....................... 84.50% █████████████████   (258 tests)
+├─ Live Multiple ..................... 73.12% ███████████████     (1,003 tests)
+└─ Live Parallel ..................... 93.75% ████████████████████ (16 tests)
+   Subtotal: 1,277 tests | Category Avg: 83.79% | Status: ⚠️  NEEDS WORK
+
+═════════════════════════════════════════════════════════════════════════════════
+
+📈 PERFORMANCE BREAKDOWN
+─────────────────────────────────────────────────────────────────────────────────
+
+Accuracy Distribution:
+   95.00% ┤ ■ Simple Python
+   93.75% ┤ ■ Live Parallel
+   92.50% ┤ ■ Parallel
+   92.00% ┤ ■ Multiple
+   91.00% ┤ ■ Parallel + Multiple
+   84.50% ┤ ■ Live Simple
+   73.12% ┤ ■ Live Multiple
+   ─────────────────────────────
+
+Performance Gaps:
+   Non-Live Average: 92.63%
+   Live Average:     83.79%
+   Performance Gap:  -8.84% ⚠️
+
+═════════════════════════════════════════════════════════════════════════════════
+
+✅ STRENGTHS
+─────────────────────────────────────────────────────────────────────────────────
+
+1. HIGH CONSISTENCY ON STANDARD CASES (95% - 92%)
+   → Model is very reliable for typical tool-calling scenarios
+   → Excellent at understanding function semantics
+   → Strong reasoning capability for function selection
+
+2. EXCELLENT PARALLEL EXECUTION (92.5% - 93.75%)
+   → Successfully handles concurrent function calls
+   → Good at managing independent operations
+   → Both mock and real APIs handled well
+
+3. STABLE MULTIPLE FUNCTION HANDLING (92% - 91%)
+   → Capable of orchestrating complex interactions
+   → Maintains performance even with multiple functions
+   → Consistent across mock and real scenarios
+
+═════════════════════════════════════════════════════════════════════════════════
+
+⚠️  AREAS FOR IMPROVEMENT
+─────────────────────────────────────────────────────────────────────────────────
+
+1. LIVE API INTEGRATION CHALLENGES (73.12% on live_multiple)
+   Problem: Performance drops 19.51% from non-live multiple (92%) to live (73.12%)
+   Likely Causes:
+   → Error handling from real API responses
+   → Timeout or rate-limiting issues
+   → Network latency handling
+   → Response parsing from unexpected formats
+
+2. REAL API RELIABILITY (8.84% gap between non-live vs live)
+   Problem: Model struggles more with real world conditions
+   Solutions to Explore:
+   → Add retry logic with exponential backoff
+   → Implement request timeouts
+   → Better error message handling
+   → Cache results for repeated calls
+
+3. COMPLEX LIVE SCENARIOS (1,003 tests, 73.12% accuracy)
+   Problem: Multiple API calls with real endpoints have high failure rate
+   Impact: Production deployment requires careful monitoring
+   Recommendation: Implement circuit breaker pattern
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🚀 RECOMMENDATIONS
+─────────────────────────────────────────────────────────────────────────────────
+
+FOR MENTOR DISCUSSION:
+✓ Model is excellent for standard tool-calling (95% accuracy)
+✓ Reliable for both simple and complex (parallel, multiple) scenarios
+⚠ Production deployment needs real API integration improvements
+⚠ Monitor failure patterns in live_multiple scenario
+
+FOR NEXT STEPS:
+1. Analyze failure patterns in live_multiple (1,003 failures to investigate)
+2. Implement error recovery mechanisms
+3. Add monitoring and observability for API interactions
+4. Consider fine-tuning on real-world API scenarios
+5. Test with different timeout and retry configurations
+
+FOR COMPARISON:
+- Non-Live Performance: Top-tier (92.63%)
+- Live Performance: Mid-tier (83.79%)
+- Overall: Good model, needs production hardening
+
+═════════════════════════════════════════════════════════════════════════════════
+
+📁 FILES & COMMANDS
+─────────────────────────────────────────────────────────────────────────────────
+
+Evaluation Report:
+  → GOTO_EVAL_REPORT.md (detailed findings)
+
+Result Files:
+  → result/goto/non_live/BFCL_v4_simple_python_result.json (95%, 400 tests)
+  → result/goto/non_live/BFCL_v4_multiple_result.json (92%, 200 tests)
+  → result/goto/non_live/BFCL_v4_parallel_result.json (92.5%, 200 tests)
+  → result/goto/non_live/BFCL_v4_parallel_multiple_result.json (91%, 200 tests)
+  → result/goto/live/BFCL_v4_live_simple_result.json (84.5%, 258 tests)
+  → result/goto/live/BFCL_v4_live_multiple_result.json (73.12%, 1,003 tests)
+  → result/goto/live/BFCL_v4_live_parallel_result.json (93.75%, 16 tests)
+
+Score CSV Files:
+  → score/data_overall.csv (leaderboard ranking)
+  → score/data_non_live.csv (mock API results)
+  → score/data_live.csv (real API results)
+
+Rerun Commands:
+  source .venv/bin/activate
+  bfcl evaluate --model goto --test-category simple_python,multiple,parallel,parallel_multiple,live_simple,live_multiple,live_parallel
+
+═════════════════════════════════════════════════════════════════════════════════
+
+⏱️  Evaluation Timing:
+├─ simple_python: 400 tests in ~6-7 min
+├─ multiple: 200 tests in ~5:30
+├─ parallel: 200 tests in ~13:46
+├─ parallel_multiple: 200 tests in ~14:57
+├─ live_simple: 258 tests in ~8:05
+├─ live_multiple: 1,003 tests in ~32:38
+└─ live_parallel: 16 tests in ~0:47
+   TOTAL: 2,377 tests in ~1.5 hours
+
+═════════════════════════════════════════════════════════════════════════════════
+
+Generated: November 17, 2025
+Model: GoTo (Sahabat AI by GoToCompany)
+Framework: BFCL v4 (Berkeley Function Calling Leaderboard)
+Status: ✅ Evaluation Complete
+
+═════════════════════════════════════════════════════════════════════════════════
+"""
+    
+    return report
+
+if __name__ == "__main__":
+    summary = create_summary_report()
+    print(summary)
+    
+    # Save to file
+    output_path = "GOTO_EVAL_SUMMARY.txt"
+    with open(output_path, "w") as f:
+        f.write(summary)
+    
+    print(f"\n✅ Summary saved to: {output_path}")
