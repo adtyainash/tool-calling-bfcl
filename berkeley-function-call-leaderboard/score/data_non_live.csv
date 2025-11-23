@@ -1,0 +1,2 @@
+Rank,Model,Non-Live Overall Acc,AST Summary,Simple AST,Python Simple AST,Java Simple AST,JavaScript Simple AST,Multiple AST,Parallel AST,Parallel Multiple AST,Irrelevance Detection
+1,Sahabat AI,88.54%,88.54%,78.67%,95.00%,67.00%,74.00%,92.50%,92.00%,91.00%,69.17%
