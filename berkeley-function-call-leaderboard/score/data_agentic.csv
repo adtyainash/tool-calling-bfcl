@@ -1,2 +1,2 @@
 Rank,Model,Agentic Overall Acc,Web Search Summary,Web Search Base,Web Search No Snippet,Memory Summary,Memory KV,Memory Vector,Memory Recursive Summarization
-1,Sahabat AI,9.28%,2.00%,2.00%,2.00%,N/A,13.55%,N/A,36.13%
+1,Sahabat AI,10.78%,2.00%,2.00%,2.00%,19.57%,13.55%,9.03%,36.13%
