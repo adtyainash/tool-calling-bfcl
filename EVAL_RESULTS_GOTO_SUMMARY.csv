@@ -1,0 +1,67 @@
+EVALUATION RESULTS FOR MODEL: GOTO
+Date: 2025-11-25
+
+OVERALL ACCURACY SUMMARY
+Metric,Value
+Overall Acc,29.52%
+Non-Live AST Acc,88.54%
+Live Acc,75.13%
+Multi Turn Acc,8.00%
+Web Search Acc,2.00%
+Memory Acc,13.55%
+
+DETAILED BREAKDOWN BY CATEGORY
+
+=== LIVE CATEGORIES (Single-turn with user contributions) ===
+Category,Accuracy
+Live Overall,75.13%
+  - Python Simple AST,84.50%
+  - Python Multiple AST,73.12%
+  - Python Parallel AST,93.75%
+  - Python Parallel Multiple AST,50.00%
+  - Irrelevance Detection,71.72%
+  - Relevance Detection,100.00%
+
+=== NON-LIVE CATEGORIES (Single-turn without user contributions) ===
+Category,Accuracy
+Non-Live Overall,88.54%
+  - Python Simple AST,95.00%
+  - Java Simple AST,67.00%
+  - JavaScript Simple AST,74.00%
+  - Multiple AST,92.50%
+  - Parallel AST,92.00%
+  - Parallel Multiple AST,91.00%
+  - Irrelevance Detection,69.17%
+
+=== MULTI-TURN CATEGORIES ===
+Category,Accuracy
+Multi Turn Overall,8.00%
+  - Base,18.00%
+  - Miss Func,7.00%
+  - Miss Param,7.00%
+  - Long Context,N/A
+
+=== AGENTIC CATEGORIES (Web Search & Memory) ===
+
+Web Search
+Category,Accuracy
+Web Search Overall,2.00%
+  - Base,2.00%
+  - No Snippet,2.00%
+
+Memory
+Category,Accuracy
+Memory Overall,N/A (incomplete)
+  - KV,13.55%
+  - Vector,N/A
+  - Recursive Summarization,36.13%
+
+=== TESTED CATEGORIES COMPLETION ===
+Category,Status,Accuracy
+live_irrelevance,✓ Complete,71.72%
+live_parallel_multiple,✓ Complete,50.00%
+live_relevance,✓ Complete,100.00%
+memory_rec_sum,✓ Complete,36.13%
+multi_turn_miss_func,✓ Complete,7.00%
+multi_turn_miss_param,✓ Complete,7.00%
+web_search_no_snippet,✓ Complete,2.00%

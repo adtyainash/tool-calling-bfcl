@@ -1,0 +1,4 @@
+Rank,Overall Acc,Agentic,,,,,Multi turn,,,,,Single turn,,,,,,,Live (AST),,,,,
+,,Web Search,,Memory,,Overall Acc,Base,Miss Func,Miss Param,Long Context,Non-live (AST),,,,,Live (AST),,,,
+,,Overall Acc,Base,No Snippet,KV,Vector,Recursive Sum,,,,,Simple,Multiple,Parallel,Multiple Parallel,Overall Acc,Simple,Multiple,Parallel,Multiple Parallel
+1,29.52%,2.00%,2.00%,2.00%,13.55%,N/A,36.13%,8.00%,18.00%,7.00%,7.00%,N/A,88.54%,95.00%,92.50%,92.00%,91.00%,75.13%,84.50%,73.12%,93.75%,50.00%
